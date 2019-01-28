@@ -1,0 +1,29 @@
+{
+  "name": "nz-ird-validator",
+  "version": "1.0.0",
+  "description": "Validates New Zealand tax numbers (IRD)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fnzc/nz-ird-validator.git"
+  },
+  "keywords": [
+    "New Zealand",
+    "Validator",
+    "IRD",
+    "Tax"
+  ],
+  "author": "Jeremy Farnault <farnaultjeremy@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fnzc/nz-ird-validator/issues"
+  },
+  "homepage": "https://github.com/fnzc/nz-ird-validator#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine": "^3.3.1"
+  }
+}
