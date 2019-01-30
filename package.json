@@ -1,6 +1,6 @@
 {
   "name": "@fnzc/nz-ird-validator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Validates New Zealand tax numbers (IRD)",
   "main": "index.js",
   "typings": "./index.d.ts",
