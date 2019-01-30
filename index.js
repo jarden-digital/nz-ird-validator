@@ -1,3 +1,5 @@
+const leftPad = require('left-pad')
+
 const getCheckDigit = (ird, weightFactor) => {
   const checkDigit = ird.split('')
     .map((v, i) => +v * +weightFactor.split('')[i])
@@ -10,7 +12,7 @@ const isValidIRDNumber = (irdNumber) => {
   const irdToUse = irdNumber.replace(/-/g, '')
   if (+irdToUse < 10000000 || +irdToUse > 150000000) return false
   let digit = irdToUse.substr(-1)
-  let ird = irdToUse.substr(0, irdToUse.length - 1).padStart(8, '0')
+  let ird = leftPad(irdToUse.substr(0, irdToUse.length - 1), 8, '0')
   const checkDigit = getCheckDigit(ird, '32765432')
   if (checkDigit < 10) return checkDigit === +digit
   else {
