@@ -1,0 +1,1 @@
+export function isValidIRDNumber(irdNumber: string): boolean

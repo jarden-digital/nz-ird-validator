@@ -1,17 +1,17 @@
 # nz-ird-validator
 
-[![npm](https://img.shields.io/npm/v/@fnzc/nz-ird-validator.svg)](https://www.npmjs.com/package/@fnzc/nz-ird-validator) [![npm](https://img.shields.io/npm/dt/@fnzc/nz-ird-validator.svg)](https://www.npmjs.com/package/@fnzc/nz-ird-validator.svg)
+[![npm](https://img.shields.io/npm/v/@fnzc/nz-ird-validator.svg)](https://www.npmjs.com/package/@fnzc/nz-ird-validator)
 
 _A validator for New Zealand tax numbers (IRD)_
 
 ## Installation
 
 ```
-npm install --save nz-ird-validator
+npm install --save @fnzc/nz-ird-validator
 ```
 or
 ```
-yarn add nz-ird-validator
+yarn add @fnzc/nz-ird-validator
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ Function requires one string parameter:
 Returns a boolean.
 
 ```
-var irdValidator = require('nz-ird-validator');
+var irdValidator = require('@fnzc/nz-ird-validator');
 irdValidator.isValidIRDNumber('000-000-000');
 ```
 
