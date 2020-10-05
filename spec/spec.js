@@ -40,3 +40,30 @@ describe("Invalid New Zealand Tax Numbers", function () {
     expect(validator.isValidIRDNumber("0136410132")).toBe(false);
   });
 });
+
+describe("Configure format", function () {
+  it("dashes should reject valid number missing dashes", function () {
+    expect(validator.configureValidator({requireFormat: 'dashes'})('35901981')).toBe(false);
+  });
+  it("dashes should allow valid number with dashes", function () {
+    expect(validator.configureValidator({requireFormat: 'dashes'})('35-901-981')).toBe(true);
+  });
+
+  it("numeric should allow valid number without dashes", function () {
+    expect(validator.configureValidator({requireFormat: 'numeric'})('35901981')).toBe(true);
+  });
+  it("numeric should reject valid number with dashes", function () {
+    expect(validator.configureValidator({requireFormat: 'numeric'})('35-901-981')).toBe(false);
+  });
+
+  it("either should allow valid number missing dashes", function () {
+    expect(validator.configureValidator({requireFormat: 'either'})('35901981')).toBe(true);
+  });
+  it("either should reject missing dashes", function () {
+    expect(validator.configureValidator({requireFormat: 'either'})('35-901-981')).toBe(true);
+  });
+
+  it("should fail on unknown format", () => {
+    expect(() => validator.configureValidator({requireFormat: 'foo'})('123-123-123')).toThrow()
+  })
+});

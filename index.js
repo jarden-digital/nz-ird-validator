@@ -1,5 +1,13 @@
 const leftPad = require("left-pad");
 
+const getFormatCheck = (format) => {
+  // 'dashes' | 'numeric' | 'either'
+  if(format === 'dashes') return /^\d{2,3}-\d{3}-\d{3}$/;
+  else if(format === 'numeric') return /^\d{8,9}$/;
+  else if (format === 'either') return /^(?:\d{2,3}-\d{3}-\d{3}|\d{8,9})$/;
+  throw new Error(`Unknown format, should be one of: 'dashes' | 'numeric' | 'either' `)
+}
+
 const getCheckDigit = (ird, weightFactor) => {
   const checkDigit =
     ird
@@ -9,8 +17,9 @@ const getCheckDigit = (ird, weightFactor) => {
   if (checkDigit === 0) return 0;
   else return 11 - checkDigit;
 };
-const checkDashes = /^(?:\d{2,3}-\d{3}-\d{3}|\d{8,9})$/;
-const isValidIRDNumber = (irdNumber) => {
+
+const isValidIRDNumber = (options) => (irdNumber) => {
+  const checkDashes = getFormatCheck(options.requireFormat)
   if (!checkDashes.exec(irdNumber)) {
     // invalid dash locations
     return false;
@@ -28,4 +37,13 @@ const isValidIRDNumber = (irdNumber) => {
   }
 };
 
-exports.isValidIRDNumber = isValidIRDNumber;
+exports.isValidIRDNumber = isValidIRDNumber({ requireFormat: 'either' });
+
+
+const defaultOptions = {
+  requireFormat: 'either' // 'dashes' | 'numeric' | 'either'
+}
+
+const processConfiguration = (userConfig = {}) => ({ ...defaultOptions, ...userConfig })
+
+exports.configureValidator = (userConfig) => isValidIRDNumber(processConfiguration(userConfig))
