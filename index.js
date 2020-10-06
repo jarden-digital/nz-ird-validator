@@ -1,4 +1,9 @@
-const leftPad = require("left-pad");
+const leftPad = (value, desiredLength, padding) => {
+  const input = value.toString() 
+  const lengthDifference = Math.max(desiredLength - input.length, 0)
+  const filler = new Array(lengthDifference).fill(padding).join('')
+  return filler + input
+}
 
 const getFormatCheck = (format) => {
   // 'dashes' | 'numeric' | 'either'
@@ -37,13 +42,13 @@ const isValidIRDNumber = (options) => (irdNumber) => {
   }
 };
 
-exports.isValidIRDNumber = isValidIRDNumber({ requireFormat: 'either' });
-
 
 const defaultOptions = {
   requireFormat: 'either' // 'dashes' | 'numeric' | 'either'
 }
 
 const processConfiguration = (userConfig = {}) => ({ ...defaultOptions, ...userConfig })
+
+exports.isValidIRDNumber = isValidIRDNumber({ requireFormat: 'either' });
 
 exports.configureValidator = (userConfig) => isValidIRDNumber(processConfiguration(userConfig))

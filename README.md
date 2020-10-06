@@ -6,11 +6,11 @@ _A validator for New Zealand tax numbers (IRD)_
 
 ## Installation
 
-```
+```sh
 npm install --save @fnzc/nz-ird-validator
 ```
 or
-```
+```sh
 yarn add @fnzc/nz-ird-validator
 ```
 
@@ -20,9 +20,15 @@ Function requires one string parameter:
 * IRD number (normal or dashed format)
 Returns a boolean.
 
-```
+```js
 var irdValidator = require('@fnzc/nz-ird-validator');
 irdValidator.isValidIRDNumber('000-000-000');
+```
+
+Allows you to specify whether dashes / no dashes are required - defaults to agnostic ('either').
+
+```js
+validator.configureValidator({requireFormat: 'dashes'})('123-123-123')
 ```
 
 ## Algorithm
