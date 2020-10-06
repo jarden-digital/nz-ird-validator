@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 
 - Add custom constraint for format with dashes / numeric
+- Remove left-pad dependency
 
 ## [1.0.5] - 2020-06-17
 
