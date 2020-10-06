@@ -1,4 +1,17 @@
-const leftPad = require("left-pad");
+const leftPad = (value, desiredLength, padding) => {
+  const input = value.toString() 
+  const lengthDifference = Math.max(desiredLength - input.length, 0)
+  const filler = new Array(lengthDifference).fill(padding).join('')
+  return filler + input
+}
+
+const getFormatCheck = (format) => {
+  // 'dashes' | 'numeric' | 'either'
+  if(format === 'dashes') return /^\d{2,3}-\d{3}-\d{3}$/;
+  else if(format === 'numeric') return /^\d{8,9}$/;
+  else if (format === 'either') return /^(?:\d{2,3}-\d{3}-\d{3}|\d{8,9})$/;
+  throw new Error(`Unknown format, should be one of: 'dashes' | 'numeric' | 'either' `)
+}
 
 const getCheckDigit = (ird, weightFactor) => {
   const checkDigit =
@@ -9,8 +22,9 @@ const getCheckDigit = (ird, weightFactor) => {
   if (checkDigit === 0) return 0;
   else return 11 - checkDigit;
 };
-const checkDashes = /^(?:\d{2,3}-\d{3}-\d{3}|\d{8,9})$/;
-const isValidIRDNumber = (irdNumber) => {
+
+const isValidIRDNumber = (options) => (irdNumber) => {
+  const checkDashes = getFormatCheck(options.requireFormat)
   if (!checkDashes.exec(irdNumber)) {
     // invalid dash locations
     return false;
@@ -28,4 +42,13 @@ const isValidIRDNumber = (irdNumber) => {
   }
 };
 
-exports.isValidIRDNumber = isValidIRDNumber;
+
+const defaultOptions = {
+  requireFormat: 'either' // 'dashes' | 'numeric' | 'either'
+}
+
+const processConfiguration = (userConfig = {}) => ({ ...defaultOptions, ...userConfig })
+
+exports.isValidIRDNumber = isValidIRDNumber({ requireFormat: 'either' });
+
+exports.configureValidator = (userConfig) => isValidIRDNumber(processConfiguration(userConfig))
